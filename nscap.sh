@@ -16,7 +16,7 @@ function setupNs() {
 }
 function runCommand() {
     mkfifo /tmp/nscap
-    ip netns exec $nsName tcpdump -i $veth_1 -U -w - 2>/dev/null | tee /tmp/nscap $nsName.pcap &
+    ip netns exec $nsName bash -c "tcpdump -i $veth_1 -U -w /tmp/nscap 2>/dev/null &"
     if (($with_ws == 1)); then
         wireshark -i /tmp/nscap &
     fi
